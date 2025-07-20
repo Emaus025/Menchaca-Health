@@ -72,34 +72,57 @@ Ubicación: menchaca-health/
 - PostgreSQL (v12 o superior)
 - Git
 ### 🔧 Configuración del Backend
-1. 1.
-   Clonar el repositorio:
-2. 1.
-   Configurar variables de entorno:
-3. 1.
-   Instalar dependencias:
-4. 1.
-   Configurar base de datos:
-5. 1.
-   Ejecutar el servidor:
+1.Clonar el repositorio:
+2.Configurar variables de entorno:
+3.Instalar dependencias:
+4.Configurar base de datos:
+5.Ejecutar el servidor:
 El servidor estará disponible en http://localhost:8080
 
 ### 🎨 Configuración del Frontend
-1. 1.
-   Navegar al directorio del frontend:
-2. 1.
-   Instalar dependencias:
-3. 1.
-   Configurar entorno:
-4. 1.
-   Ejecutar la aplicación:
+1.Navegar al directorio del frontend:
+2.Instalar dependencias:
+3.Configurar entorno:
+4.Ejecutar la aplicación:
 La aplicación estará disponible en http://localhost:4200
 
 ## 📡 API Endpoints
 ### 🔐 Autenticación
+```
+POST   /api/auth/login          # Iniciar sesión
+POST   /api/auth/register       # Registrar usuario
+GET    /api/auth/verify-email   # Verificar email
+POST   /api/auth/logout         # Cerrar sesión
+POST   /api/auth/refresh-token  # Renovar token
+```
 ### 👥 Usuarios
+```
+GET    /api/usuarios            # Listar usuarios
+POST   /api/usuarios            # Crear usuario
+GET    /api/usuarios/{id}       # Obtener usuario
+PUT    /api/usuarios/{id}       # Actualizar usuario
+DELETE /api/usuarios/{id}       # Eliminar usuario
+GET    /api/usuarios/role/{role} # Usuarios por rol
+GET    /api/usuarios/profile    # Perfil actual
+PUT    /api/usuarios/profile    # Actualizar perfil
+PUT    /api/usuarios/change-password # Cambiar contraseña
+```
 ### 📅 Citas
-### 📋 Expedientes (Próximamente)
+```
+GET    /api/citas               # Listar citas
+POST   /api/citas               # Crear cita
+GET    /api/citas/{id}          # Obtener cita
+PUT    /api/citas/{id}          # Actualizar cita
+DELETE /api/citas/{id}          # Eliminar cita
+GET    /api/citas/patient/{id}  # Citas por paciente
+GET    /api/citas/medico/{id}   # Citas por médico
+GET    /api/citas/date/{date}   # Citas por fecha
+GET    /api/citas/today         # Citas de hoy
+GET    /api/citas/upcoming      # Próximas citas
+PUT    /api/citas/{id}/confirm  # Confirmar cita
+PUT    /api/citas/{id}/cancel   # Cancelar cita
+```
+### 📋 Expedientes
 ```
 GET    /api/expedientes         # 
 Listar expedientes
@@ -140,12 +163,9 @@ GET    /api/expedientes/paciente/
 ### Frontend Testing
 ## 📦 Deployment
 ### 🐳 Docker (Recomendado)
-1. 1.
-   Backend Dockerfile:
-2. 1.
-   Frontend Dockerfile:
-3. 1.
-   Docker Compose:
+1.Backend Dockerfile:
+2.Frontend Dockerfile:
+3.Docker Compose:
 ## 🔧 Desarrollo
 ### 📝 Convenciones de Código Backend (Go)
 - Seguir las convenciones estándar de Go
@@ -158,13 +178,8 @@ GET    /api/expedientes/paciente/
 - Servicios inyectables
 ### 🌿 Git Workflow
 ## 🤝 Contribución
-1. 1.
-   Fork el proyecto
-2. 2.
-   Crear rama para la funcionalidad ( git checkout -b feature/AmazingFeature )
-3. 3.
-   Commit los cambios ( git commit -m 'Add some AmazingFeature' )
-4. 4.
-   Push a la rama ( git push origin feature/AmazingFeature )
-5. 5.
-   Abrir un Pull Request
+1.Fork el proyecto
+2.Crear rama para la funcionalidad ( git checkout -b feature/AmazingFeature )
+3.Commit los cambios ( git commit -m 'Add some AmazingFeature' )
+4.Push a la rama ( git push origin feature/AmazingFeature )
+5.Abrir un Pull Request
