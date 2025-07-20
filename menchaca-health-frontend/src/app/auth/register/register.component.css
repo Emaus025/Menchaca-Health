@@ -1,0 +1,89 @@
+.register-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 1rem;
+}
+
+.register-wrapper {
+  width: 100%;
+  max-width: 800px;
+}
+
+.register-card {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-radius: 1rem;
+  border: none;
+}
+
+.field {
+  margin-bottom: 1.5rem;
+}
+
+.p-error {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.ng-invalid.ng-touched {
+  border-color: #e24c4c;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.col-12 {
+  grid-column: span 12;
+}
+
+@media (min-width: 768px) {
+  .md\:col-6 {
+    grid-column: span 6;
+  }
+  
+  .grid {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.mt-4 {
+  margin-top: 1.5rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .md\:w-auto {
+    width: auto;
+  }
+}
+
+.text-primary {
+  color: #3B82F6;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.hover\:underline:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,143 @@
+.home-container {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.user-menu {
+  padding: 0.5rem;
+}
+
+.user-info {
+  text-align: right;
+  margin-right: 0.5rem;
+}
+
+.main-content {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.welcome-section {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+/* Estilos existentes... */
+
+/* Estilos específicos para el consultorio médico */
+.consultorio-card {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-left: 4px solid #007bff;
+}
+
+.consultorio-tools {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.consultorio-btn {
+  border-color: #007bff !important;
+  color: #007bff !important;
+  transition: all 0.3s ease;
+}
+
+.consultorio-btn:hover {
+  background-color: #007bff !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Estilos para diferentes tipos de usuario */
+.patient-view {
+  background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+  min-height: calc(100vh - 80px);
+  padding: 20px;
+}
+
+.doctor-view {
+  background: linear-gradient(135deg, #e8f5e8 0%, #f0f8ff 100%);
+  min-height: calc(100vh - 80px);
+  padding: 20px;
+}
+
+.admin-view {
+  background: linear-gradient(135deg, #fff3e0 0%, #fce4ec 100%);
+  min-height: calc(100vh - 80px);
+  padding: 20px;
+}
+
+.nurse-view {
+  background: linear-gradient(135deg, #f1f8e9 0%, #e8eaf6 100%);
+  min-height: calc(100vh - 80px);
+  padding: 20px;
+}
+
+/* Estilos para items de actividad */
+.appointment-item, .activity-item, .info-item {
+  transition: all 0.3s ease;
+}
+
+.appointment-item:hover, .activity-item:hover {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  transform: translateX(5px);
+}
+
+/* Estilos para las tarjetas de estadísticas */
+.stats-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.stats-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.stats-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .patient-view, .doctor-view, .admin-view, .nurse-view {
+    padding: 10px;
+  }
+  
+  .welcome-section h1 {
+    font-size: 1.8rem;
+  }
+}
+
+/* Custom menubar styles */
+::ng-deep .custom-menubar {
+  border-radius: 0;
+  border: none;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+::ng-deep .custom-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link {
+  color: white;
+}
+
+::ng-deep .custom-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link:hover {
+  background-color: rgba(255,255,255,0.1);
+}

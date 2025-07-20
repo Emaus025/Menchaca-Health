@@ -1,0 +1,503 @@
+<div class="home-container">
+  <!-- Header con menú de navegación -->
+  <div class="header">
+    <p-menubar [model]="items" styleClass="custom-menubar">
+      <ng-template pTemplate="start">
+        <div class="logo-container">
+          <i class="pi pi-heart-fill text-primary text-2xl mr-2"></i>
+          <span class="font-bold text-xl text-primary">Menchaca Health</span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="end">
+        <div class="user-menu flex align-items-center gap-2">
+          <p-avatar 
+            [label]="getUserInitials()" 
+            styleClass="mr-2" 
+            size="normal" 
+            shape="circle">
+          </p-avatar>
+          <div class="user-info">
+            <div class="font-medium">{{userInfo.nombre}} {{userInfo.apellido}}</div>
+            <div class="text-sm text-500">{{userInfo.tipo_usuario}}</div>
+          </div>
+          <p-button 
+            icon="pi pi-sign-out" 
+            (onClick)="logout()" 
+            styleClass="p-button-text p-button-rounded"
+            pTooltip="Cerrar Sesión"
+            tooltipPosition="bottom">
+          </p-button>
+        </div>
+      </ng-template>
+    </p-menubar>
+  </div>
+
+  <!-- Contenido principal dinámico según tipo de usuario -->
+  <div class="main-content">
+    
+    <!-- Vista para PACIENTES -->
+    <div *ngIf="isPatient()" class="patient-view">
+      <div class="welcome-section mb-4">
+        <h1 class="text-3xl font-bold text-900 mb-2">
+          Bienvenido, {{userInfo.nombre}} {{userInfo.apellido}}
+        </h1>
+        <p class="text-600 text-lg">
+          Panel del Paciente - Gestiona tus citas y recetas médicas
+        </p>
+      </div>
+
+      <div class="grid">
+        <div class="col-12 md:col-6">
+          <p-card header="Mis Próximas Citas" styleClass="h-full">
+            <div class="appointment-item mb-3 p-3 border-1 surface-border border-round">
+              <div class="flex justify-content-between align-items-center">
+                <div>
+                  <div class="font-medium">Dr. García - Cardiología</div>
+                  <div class="text-sm text-500">15 de Enero, 2024 - 10:00 AM</div>
+                </div>
+                <p-button icon="pi pi-eye" styleClass="p-button-text"></p-button>
+              </div>
+            </div>
+            <p-button label="Ver Todas Mis Citas" styleClass="w-full" routerLink="/mis-citas"></p-button>
+          </p-card>
+        </div>
+        
+        <div class="col-12 md:col-6">
+          <p-card header="Mis Recetas" styleClass="h-full">
+            <div class="prescription-item mb-3 p-3 border-1 surface-border border-round">
+              <div class="flex justify-content-between align-items-center">
+                <div>
+                  <div class="font-medium">Receta #001</div>
+                  <div class="text-sm text-500">Emitida: 10 de Enero, 2024</div>
+                </div>
+                <p-button icon="pi pi-download" styleClass="p-button-text"></p-button>
+              </div>
+            </div>
+            <p-button label="Ver Todas Mis Recetas" styleClass="w-full" routerLink="/mis-recetas"></p-button>
+          </p-card>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vista para MÉDICOS (Temática de Consultorio) -->
+    <div *ngIf="isDoctor()" class="doctor-view">
+      <div class="welcome-section mb-4">
+        <h1 class="text-3xl font-bold text-900 mb-2">
+          <i class="pi pi-user-md mr-2"></i>Dr. {{userInfo.nombre}} {{userInfo.apellido}}
+        </h1>
+        <p class="text-600 text-lg">
+          Consultorio Médico - Panel de Control Profesional
+        </p>
+      </div>
+
+      <!-- Estadísticas del consultorio -->
+      <div class="grid mb-4">
+        <div class="col-12 md:col-3">
+          <p-card styleClass="stats-card consultorio-card">
+            <div class="flex align-items-center">
+              <div class="stats-icon bg-blue-100 text-blue-600">
+                <i class="pi pi-calendar text-2xl"></i>
+              </div>
+              <div class="ml-3">
+                <div class="text-2xl font-bold text-900">8</div>
+                <div class="text-600">Citas Hoy</div>
+              </div>
+            </div>
+          </p-card>
+        </div>
+        
+        <div class="col-12 md:col-3">
+          <p-card styleClass="stats-card consultorio-card">
+            <div class="flex align-items-center">
+              <div class="stats-icon bg-green-100 text-green-600">
+                <i class="pi pi-users text-2xl"></i>
+              </div>
+              <div class="ml-3">
+                <div class="text-2xl font-bold text-900">45</div>
+                <div class="text-600">Pacientes</div>
+              </div>
+            </div>
+          </p-card>
+        </div>
+        
+        <div class="col-12 md:col-3">
+          <p-card styleClass="stats-card consultorio-card">
+            <div class="flex align-items-center">
+              <div class="stats-icon bg-orange-100 text-orange-600">
+                <i class="pi pi-file-pdf text-2xl"></i>
+              </div>
+              <div class="ml-3">
+                <div class="text-2xl font-bold text-900">12</div>
+                <div class="text-600">Recetas Emitidas</div>
+              </div>
+            </div>
+          </p-card>
+        </div>
+        
+        <div class="col-12 md:col-3">
+          <p-card styleClass="stats-card consultorio-card">
+            <div class="flex align-items-center">
+              <div class="stats-icon bg-purple-100 text-purple-600">
+                <i class="pi pi-building text-2xl"></i>
+              </div>
+              <div class="ml-3">
+                <div class="text-2xl font-bold text-900">A-101</div>
+                <div class="text-600">Consultorio</div>
+              </div>
+            </div>
+          </p-card>
+        </div>
+      </div>
+
+      <!-- Herramientas del consultorio -->
+      <div class="grid">
+        <div class="col-12 lg:col-8">
+          <p-card header="Herramientas del Consultorio" styleClass="h-full consultorio-tools">
+            <div class="grid">
+              <div class="col-12 md:col-6 lg:col-4">
+                <p-button 
+                  label="Nueva Receta" 
+                  icon="pi pi-file-plus" 
+                  styleClass="w-full p-button-outlined consultorio-btn"
+                  routerLink="/recetas/nueva">
+                </p-button>
+              </div>
+              <div class="col-12 md:col-6 lg:col-4">
+                <p-button 
+                  label="Agendar Cita" 
+                  icon="pi pi-calendar-plus" 
+                  styleClass="w-full p-button-outlined consultorio-btn"
+                  routerLink="/citas/nueva">
+                </p-button>
+              </div>
+              <div class="col-12 md:col-6 lg:col-4">
+                <p-button 
+                  label="Ver Expedientes" 
+                  icon="pi pi-folder-open" 
+                  styleClass="w-full p-button-outlined consultorio-btn"
+                  routerLink="/expedientes">
+                </p-button>
+              </div>
+              <div class="col-12 md:col-6 lg:col-4">
+                <p-button 
+                  label="Mi Agenda" 
+                  icon="pi pi-calendar" 
+                  styleClass="w-full p-button-outlined consultorio-btn"
+                  routerLink="/citas">
+                </p-button>
+              </div>
+              <div class="col-12 md:col-6 lg:col-4">
+                <p-button 
+                  label="Mis Pacientes" 
+                  icon="pi pi-users" 
+                  styleClass="w-full p-button-outlined consultorio-btn"
+                  routerLink="/pacientes">
+                </p-button>
+              </div>
+              <div class="col-12 md:col-6 lg:col-4">
+                <p-button 
+                  label="Mi Consultorio" 
+                  icon="pi pi-building" 
+                  styleClass="w-full p-button-outlined consultorio-btn"
+                  routerLink="/consultorio">
+                </p-button>
+              </div>
+            </div>
+          </p-card>
+        </div>
+        
+        <div class="col-12 lg:col-4">
+          <p-card header="Agenda de Hoy" styleClass="h-full">
+            <div class="appointment-item mb-3 pb-3 border-bottom-1 surface-border">
+              <div class="flex align-items-center">
+                <i class="pi pi-clock text-blue-500 mr-2"></i>
+                <div>
+                  <div class="font-medium">09:00 - María González</div>
+                  <div class="text-sm text-500">Consulta General</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="appointment-item mb-3 pb-3 border-bottom-1 surface-border">
+              <div class="flex align-items-center">
+                <i class="pi pi-clock text-green-500 mr-2"></i>
+                <div>
+                  <div class="font-medium">10:30 - Carlos Ruiz</div>
+                  <div class="text-sm text-500">Seguimiento</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="appointment-item">
+              <div class="flex align-items-center">
+                <i class="pi pi-clock text-orange-500 mr-2"></i>
+                <div>
+                  <div class="font-medium">14:00 - Ana López</div>
+                  <div class="text-sm text-500">Primera Consulta</div>
+                </div>
+              </div>
+            </div>
+          </p-card>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vista para ADMINISTRADORES -->
+    <div *ngIf="isAdmin()" class="admin-view">
+      <div class="welcome-section mb-4">
+        <h1 class="text-3xl font-bold text-900 mb-2">
+          Panel de Administración
+        </h1>
+        <p class="text-600 text-lg">
+          Control Total del Sistema - Gestión Hospitalaria
+        </p>
+      </div>
+
+      <!-- Estadísticas generales -->
+      <div class="grid mb-4">
+        <div class="col-12 md:col-6 lg:col-3">
+          <p-card styleClass="stats-card">
+            <div class="flex align-items-center">
+              <div class="stats-icon bg-blue-100 text-blue-600">
+                <i class="pi pi-users text-2xl"></i>
+              </div>
+              <div class="ml-3">
+                <div class="text-2xl font-bold text-900">156</div>
+                <div class="text-600">Total Usuarios</div>
+              </div>
+            </div>
+          </p-card>
+        </div>
+        
+        <div class="col-12 md:col-6 lg:col-3">
+          <p-card styleClass="stats-card">
+            <div class="flex align-items-center">
+              <div class="stats-icon bg-green-100 text-green-600">
+                <i class="pi pi-heart text-2xl"></i>
+              </div>
+              <div class="ml-3">
+                <div class="text-2xl font-bold text-900">89</div>
+                <div class="text-600">Pacientes</div>
+              </div>
+            </div>
+          </p-card>
+        </div>
+        
+        <div class="col-12 md:col-6 lg:col-3">
+          <p-card styleClass="stats-card">
+            <div class="flex align-items-center">
+              <div class="stats-icon bg-orange-100 text-orange-600">
+                <i class="pi pi-user-md text-2xl"></i>
+              </div>
+              <div class="ml-3">
+                <div class="text-2xl font-bold text-900">12</div>
+                <div class="text-600">Médicos</div>
+              </div>
+            </div>
+          </p-card>
+        </div>
+        
+        <div class="col-12 md:col-6 lg:col-3">
+          <p-card styleClass="stats-card">
+            <div class="flex align-items-center">
+              <div class="stats-icon bg-purple-100 text-purple-600">
+                <i class="pi pi-building text-2xl"></i>
+              </div>
+              <div class="ml-3">
+                <div class="text-2xl font-bold text-900">8</div>
+                <div class="text-600">Consultorios</div>
+              </div>
+            </div>
+          </p-card>
+        </div>
+      </div>
+
+      <!-- Gestión administrativa -->
+      <div class="grid">
+        <div class="col-12 lg:col-8">
+          <p-card header="Gestión del Sistema" styleClass="h-full">
+            <div class="grid">
+              <div class="col-12 md:col-6 lg:col-4">
+                <p-button 
+                  label="Gestionar Usuarios" 
+                  icon="pi pi-users" 
+                  styleClass="w-full p-button-outlined"
+                  routerLink="/usuarios">
+                </p-button>
+              </div>
+              <div class="col-12 md:col-6 lg:col-4">
+                <p-button 
+                  label="Gestionar Pacientes" 
+                  icon="pi pi-heart" 
+                  styleClass="w-full p-button-outlined"
+                  routerLink="/pacientes">
+                </p-button>
+              </div>
+              <div class="col-12 md:col-6 lg:col-4">
+                <p-button 
+                  label="Gestionar Citas" 
+                  icon="pi pi-calendar" 
+                  styleClass="w-full p-button-outlined"
+                  routerLink="/citas">
+                </p-button>
+              </div>
+              <div class="col-12 md:col-6 lg:col-4">
+                <p-button 
+                  label="Gestionar Consultorios" 
+                  icon="pi pi-building" 
+                  styleClass="w-full p-button-outlined"
+                  routerLink="/consultorios">
+                </p-button>
+              </div>
+              <div class="col-12 md:col-6 lg:col-4">
+                <p-button 
+                  label="Ver Reportes" 
+                  icon="pi pi-chart-bar" 
+                  styleClass="w-full p-button-outlined"
+                  routerLink="/reportes">
+                </p-button>
+              </div>
+              <div class="col-12 md:col-6 lg:col-4">
+                <p-button 
+                  label="Configuración" 
+                  icon="pi pi-cog" 
+                  styleClass="w-full p-button-outlined"
+                  routerLink="/configuracion">
+                </p-button>
+              </div>
+            </div>
+          </p-card>
+        </div>
+        
+        <div class="col-12 lg:col-4">
+          <p-card header="Actividad del Sistema" styleClass="h-full">
+            <div class="activity-item mb-3 pb-3 border-bottom-1 surface-border">
+              <div class="flex align-items-center">
+                <i class="pi pi-user-plus text-green-500 mr-2"></i>
+                <div>
+                  <div class="font-medium">Nuevo usuario registrado</div>
+                  <div class="text-sm text-500">Hace 1 hora</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="activity-item mb-3 pb-3 border-bottom-1 surface-border">
+              <div class="flex align-items-center">
+                <i class="pi pi-calendar text-blue-500 mr-2"></i>
+                <div>
+                  <div class="font-medium">Cita programada</div>
+                  <div class="text-sm text-500">Hace 2 horas</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="activity-item">
+              <div class="flex align-items-center">
+                <i class="pi pi-building text-purple-500 mr-2"></i>
+                <div>
+                  <div class="font-medium">Consultorio actualizado</div>
+                  <div class="text-sm text-500">Hace 3 horas</div>
+                </div>
+              </div>
+            </div>
+          </p-card>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vista para ENFERMEROS -->
+    <div *ngIf="isNurse()" class="nurse-view">
+      <div class="welcome-section mb-4">
+        <h1 class="text-3xl font-bold text-900 mb-2">
+          Panel de Enfermería
+        </h1>
+        <p class="text-600 text-lg">
+          Visualización de Expedientes, Horarios y Consultorios
+        </p>
+      </div>
+
+      <div class="grid">
+        <div class="col-12 md:col-4">
+          <p-card header="Expedientes" styleClass="h-full">
+            <div class="text-center mb-3">
+              <i class="pi pi-folder text-6xl text-blue-500 mb-3"></i>
+              <div class="text-2xl font-bold text-900">45</div>
+              <div class="text-600">Expedientes Disponibles</div>
+            </div>
+            <p-button 
+              label="Ver Expedientes" 
+              icon="pi pi-eye" 
+              styleClass="w-full"
+              routerLink="/expedientes">
+            </p-button>
+          </p-card>
+        </div>
+        
+        <div class="col-12 md:col-4">
+          <p-card header="Horarios" styleClass="h-full">
+            <div class="text-center mb-3">
+              <i class="pi pi-clock text-6xl text-green-500 mb-3"></i>
+              <div class="text-2xl font-bold text-900">8</div>
+              <div class="text-600">Horarios Activos</div>
+            </div>
+            <p-button 
+              label="Ver Horarios" 
+              icon="pi pi-eye" 
+              styleClass="w-full"
+              routerLink="/horarios">
+            </p-button>
+          </p-card>
+        </div>
+        
+        <div class="col-12 md:col-4">
+          <p-card header="Consultorios" styleClass="h-full">
+            <div class="text-center mb-3">
+              <i class="pi pi-building text-6xl text-orange-500 mb-3"></i>
+              <div class="text-2xl font-bold text-900">6</div>
+              <div class="text-600">Consultorios</div>
+            </div>
+            <p-button 
+              label="Ver Consultorios" 
+              icon="pi pi-eye" 
+              styleClass="w-full"
+              routerLink="/consultorios">
+            </p-button>
+          </p-card>
+        </div>
+      </div>
+
+      <!-- Información adicional para enfermeros -->
+      <div class="grid mt-4">
+        <div class="col-12">
+          <p-card header="Información del Turno" styleClass="h-full">
+            <div class="grid">
+              <div class="col-12 md:col-6">
+                <div class="info-item mb-3">
+                  <div class="flex align-items-center">
+                    <i class="pi pi-clock text-blue-500 mr-2"></i>
+                    <div>
+                      <div class="font-medium">Turno Actual</div>
+                      <div class="text-sm text-500">Mañana (07:00 - 15:00)</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 md:col-6">
+                <div class="info-item mb-3">
+                  <div class="flex align-items-center">
+                    <i class="pi pi-users text-green-500 mr-2"></i>
+                    <div>
+                      <div class="font-medium">Pacientes en Espera</div>
+                      <div class="text-sm text-500">5 pacientes</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </p-card>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

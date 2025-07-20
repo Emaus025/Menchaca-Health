@@ -1,0 +1,68 @@
+<div class="login-container">
+  <div class="login-wrapper">
+    <p-card header="Iniciar Sesión" subheader="Sistema Hospitalario Menchaca" styleClass="login-card">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="field">
+          <label for="email" class="block text-900 font-medium mb-2">Correo Electrónico</label>
+          <input 
+            type="email" 
+            id="email"
+            pInputText 
+            formControlName="correo_electronico"
+            placeholder="Ingrese su correo"
+            class="w-full"
+            [class.ng-invalid]="email?.invalid && email?.touched"
+          />
+          <small 
+            class="p-error block" 
+            *ngIf="email?.invalid && email?.touched">
+            <span *ngIf="email?.errors?.['required']">El correo electrónico es requerido</span>
+            <span *ngIf="email?.errors?.['email']">Ingrese un correo válido</span>
+          </small>
+        </div>
+
+        <div class="field">
+          <label for="password" class="block text-900 font-medium mb-2">Contraseña</label>
+          <p-password 
+            formControlName="contrasena"
+            placeholder="Ingrese su contraseña"
+            [toggleMask]="true"
+            [feedback]="false"
+            styleClass="w-full"
+            inputStyleClass="w-full"
+            [class.ng-invalid]="password?.invalid && password?.touched">
+          </p-password>
+          <small 
+            class="p-error block" 
+            *ngIf="password?.invalid && password?.touched">
+            <span *ngIf="password?.errors?.['required']">La contraseña es requerida</span>
+            <span *ngIf="password?.errors?.['minlength']">Mínimo 6 caracteres</span>
+          </small>
+        </div>
+
+        <div class="field">
+          <p-button 
+            type="submit"
+            label="Iniciar Sesión"
+            [loading]="loading"
+            [disabled]="loginForm.invalid"
+            styleClass="w-full p-3 text-xl">
+          </p-button>
+        </div>
+      </form>
+
+      <ng-template pTemplate="footer">
+        <div class="text-center">
+          <p class="text-600">¿No tienes cuenta? 
+            <a routerLink="/auth/register" class="text-primary font-medium no-underline cursor-pointer">
+              Regístrate aquí
+            </a>
+          </p>
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
+</div>
+
+<p-toast></p-toast>
+<p>login works!</p>

@@ -1,0 +1,178 @@
+<div class="register-container">
+  <div class="register-wrapper">
+    <p-card header="Registro de Usuario" subheader="Sistema Hospitalario Menchaca" styleClass="register-card">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        
+        <!-- Nombre y Apellido -->
+        <div class="grid">
+          <div class="col-12 md:col-6">
+            <div class="field">
+              <label for="nombre" class="block text-900 font-medium mb-2">Nombre *</label>
+              <input 
+                type="text" 
+                id="nombre"
+                pInputText 
+                formControlName="nombre"
+                placeholder="Ingrese su nombre"
+                class="w-full"
+                [class.ng-invalid]="isFieldInvalid('nombre')"
+              />
+              <small class="p-error" *ngIf="isFieldInvalid('nombre')">
+                {{ getFieldError('nombre') }}
+              </small>
+            </div>
+          </div>
+          
+          <div class="col-12 md:col-6">
+            <div class="field">
+              <label for="apellido" class="block text-900 font-medium mb-2">Apellido *</label>
+              <input 
+                type="text" 
+                id="apellido"
+                pInputText 
+                formControlName="apellido"
+                placeholder="Ingrese su apellido"
+                class="w-full"
+                [class.ng-invalid]="isFieldInvalid('apellido')"
+              />
+              <small class="p-error" *ngIf="isFieldInvalid('apellido')">
+                {{ getFieldError('apellido') }}
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tipo de Usuario -->
+        <div class="field">
+          <label for="tipo_usuario" class="block text-900 font-medium mb-2">Tipo de Usuario *</label>
+          <p-dropdown 
+            id="tipo_usuario"
+            formControlName="tipo_usuario"
+            [options]="tiposUsuario"
+            placeholder="Seleccione tipo de usuario"
+            styleClass="w-full"
+            [class.ng-invalid]="isFieldInvalid('tipo_usuario')"
+          ></p-dropdown>
+          <small class="p-error" *ngIf="isFieldInvalid('tipo_usuario')">
+            {{ getFieldError('tipo_usuario') }}
+          </small>
+        </div>
+
+        <!-- Email -->
+        <div class="field">
+          <label for="email" class="block text-900 font-medium mb-2">Correo Electrónico *</label>
+          <input 
+            type="email" 
+            id="email"
+            pInputText 
+            formControlName="correo_electronico"
+            placeholder="Ingrese su correo electrónico"
+            class="w-full"
+            [class.ng-invalid]="isFieldInvalid('correo_electronico')"
+          />
+          <small class="p-error" *ngIf="isFieldInvalid('correo_electronico')">
+            {{ getFieldError('correo_electronico') }}
+          </small>
+        </div>
+
+        <!-- Teléfono y Fecha de Nacimiento -->
+        <div class="grid">
+          <div class="col-12 md:col-6">
+            <div class="field">
+              <label for="telefono" class="block text-900 font-medium mb-2">Teléfono *</label>
+              <input 
+                type="tel" 
+                id="telefono"
+                pInputText 
+                formControlName="telefono"
+                placeholder="1234567890"
+                class="w-full"
+                [class.ng-invalid]="isFieldInvalid('telefono')"
+              />
+              <small class="p-error" *ngIf="isFieldInvalid('telefono')">
+                {{ getFieldError('telefono') }}
+              </small>
+            </div>
+          </div>
+          
+          <div class="col-12 md:col-6">
+            <div class="field">
+              <label for="fecha_nacimiento" class="block text-900 font-medium mb-2">Fecha de Nacimiento *</label>
+              <p-calendar 
+                id="fecha_nacimiento"
+                formControlName="fecha_nacimiento"
+                placeholder="Seleccione fecha"
+                styleClass="w-full"
+                [class.ng-invalid]="isFieldInvalid('fecha_nacimiento')"
+                dateFormat="dd/mm/yy"
+                [showIcon]="true"
+                [maxDate]="maxDate"
+              ></p-calendar>
+              <small class="p-error" *ngIf="isFieldInvalid('fecha_nacimiento')">
+                {{ getFieldError('fecha_nacimiento') }}
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contraseñas -->
+        <div class="grid">
+          <div class="col-12 md:col-6">
+            <div class="field">
+              <label for="password" class="block text-900 font-medium mb-2">Contraseña *</label>
+              <p-password 
+                id="password"
+                formControlName="contrasena"
+                placeholder="Ingrese su contraseña"
+                styleClass="w-full"
+                inputStyleClass="w-full"
+                [class.ng-invalid]="isFieldInvalid('contrasena')"
+                [feedback]="false"
+                [toggleMask]="true"
+              ></p-password>
+              <small class="p-error" *ngIf="isFieldInvalid('contrasena')">
+                {{ getFieldError('contrasena') }}
+              </small>
+            </div>
+          </div>
+          
+          <div class="col-12 md:col-6">
+            <div class="field">
+              <label for="confirm_password" class="block text-900 font-medium mb-2">Confirmar Contraseña *</label>
+              <p-password 
+                id="confirm_password"
+                formControlName="confirmar_contrasena"
+                placeholder="Confirme su contraseña"
+                styleClass="w-full"
+                inputStyleClass="w-full"
+                [class.ng-invalid]="isFieldInvalid('confirmar_contrasena')"
+                [feedback]="false"
+                [toggleMask]="true"
+              ></p-password>
+              <small class="p-error" *ngIf="isFieldInvalid('confirmar_contrasena')">
+                {{ getFieldError('confirmar_contrasena') }}
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="field flex justify-content-between align-items-center mt-4">
+          <p-button 
+            type="submit" 
+            label="Registrarse" 
+            [loading]="loading"
+            [disabled]="!registerForm.valid"
+            styleClass="w-full md:w-auto"
+          ></p-button>
+          
+          <a routerLink="/auth/login" class="text-primary cursor-pointer hover:underline">
+            ¿Ya tienes cuenta? Inicia sesión
+          </a>
+        </div>
+      </form>
+    </p-card>
+  </div>
+</div>
+
+<p-toast></p-toast>
